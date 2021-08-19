@@ -1,0 +1,13 @@
+# Hardhat files
+artifacts
+cache
+typechain
+
+# Tests
+coverage
+coverage.json
+
+# Lib
+node_modules
+
+.vscode
