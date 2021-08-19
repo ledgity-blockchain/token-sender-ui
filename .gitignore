@@ -11,3 +11,5 @@ coverage.json
 node_modules
 
 .vscode
+
+env.ts
