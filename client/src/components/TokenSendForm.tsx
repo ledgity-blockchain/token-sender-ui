@@ -77,33 +77,29 @@ export const TokenSendForm: FC<Props> = ({
                 onCancel: () => {
                   reject();
                 },
+                title:
+                  'Are you sure you want to send tokens to these addresses with these amounts?',
                 content: (
-                  <Space direction="vertical">
-                    <Typography.Text>
-                      Are you sure you want to send tokens to these addresses
-                      with these amounts:
-                    </Typography.Text>
-                    <Table
-                      columns={[
-                        {
-                          title: 'Address',
-                          dataIndex: 'address',
-                          key: 'address',
-                        },
-                        {
-                          title: `Amount ${tokenInfo?.symbol ?? ''}`,
-                          dataIndex: 'amount',
-                          key: 'amount',
-                        },
-                      ]}
-                      dataSource={addresses.map((address, i) => ({
-                        key: `${address}-${i}`,
-                        i,
-                        address,
-                        amount: ethers.utils.formatUnits(amounts[i], decimals),
-                      }))}
-                    />
-                  </Space>
+                  <Table
+                    columns={[
+                      {
+                        title: 'Address',
+                        dataIndex: 'address',
+                        key: 'address',
+                      },
+                      {
+                        title: `Amount ${tokenInfo?.symbol ?? ''}`,
+                        dataIndex: 'amount',
+                        key: 'amount',
+                      },
+                    ]}
+                    dataSource={addresses.map((address, i) => ({
+                      key: `${address}-${i}`,
+                      i,
+                      address,
+                      amount: ethers.utils.formatUnits(amounts[i], decimals),
+                    }))}
+                  />
                 ),
               }),
             );
