@@ -1,4 +1,4 @@
-import { message, Space, Typography } from 'antd';
+import { message, Modal, Space, Table, Typography } from 'antd';
 import { BigNumber, ContractTransaction, ethers } from 'ethers';
 import { Formik } from 'formik';
 import { Form, Input, SubmitButton } from 'formik-antd';
@@ -66,6 +66,46 @@ export const TokenSendForm: FC<Props> = ({
         onSubmit={async ({ data }) => {
           try {
             const [addresses, amounts] = parseAddressesAmounts(data, decimals);
+            await new Promise<void>((resolve, reject) =>
+              Modal.confirm({
+                width: 'auto',
+                centered: true,
+                onOk: () => {
+                  resolve();
+                },
+                onCancel: () => {
+                  reject();
+                },
+                content: (
+                  <Space direction="vertical">
+                    <Typography.Text>
+                      Are you sure you want to send tokens to these addresses
+                      with these amounts:
+                    </Typography.Text>
+                    <Table
+                      columns={[
+                        {
+                          title: 'Address',
+                          dataIndex: 'address',
+                          key: 'address',
+                        },
+                        {
+                          title: `Amount ${tokenInfo?.symbol ?? ''}`,
+                          dataIndex: 'amount',
+                          key: 'amount',
+                        },
+                      ]}
+                      dataSource={addresses.map((address, i) => ({
+                        key: `${address}-${i}`,
+                        i,
+                        address,
+                        amount: ethers.utils.formatUnits(amounts[i], decimals),
+                      }))}
+                    />
+                  </Space>
+                ),
+              }),
+            );
             const tx = await tokenSender.bulkSend(
               token.address,
               addresses,
