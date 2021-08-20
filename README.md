@@ -2,6 +2,8 @@
 
 ## Setup project
 
+Copy `env.example.ts` to `env.ts` and fill in all the required fields.
+
 ```sh
 yarn
 cd client
