@@ -1,3 +1,4 @@
+import { MaxUint256 } from '@ethersproject/constants';
 import { message, Modal, Space, Table, Typography } from 'antd';
 import { BigNumber, ContractTransaction, ethers } from 'ethers';
 import { Formik } from 'formik';
@@ -153,17 +154,27 @@ address3, amount3
               )}
             </p>
             <Space direction="vertical">
-              <p>
-                Current approval:{' '}
-                {!allowance
-                  ? 'Loading...'
-                  : ethers.utils.formatUnits(allowance, decimals)}
-                , needed: {ethers.utils.formatUnits(amountsSum, decimals)}
-              </p>
+              {needsApproval && (
+                <p>
+                  Current approval:{' '}
+                  {!allowance
+                    ? 'Loading...'
+                    : ethers.utils.formatUnits(allowance, decimals)}
+                  , needed: {ethers.utils.formatUnits(amountsSum, decimals)}
+                </p>
+              )}
               <TransactionButton
                 disabled={!isValid || isSubmitting || !needsApproval}
                 onClick={async () => {
-                  return await token.approve(tokenSender.address, amountsSum);
+                  const spender = tokenSender.address;
+                  const useExact = await token.estimateGas
+                    .approve(spender, MaxUint256)
+                    .then(() => false)
+                    .catch(() => true);
+                  return await token.approve(
+                    spender,
+                    useExact ? amountsSum : MaxUint256,
+                  );
                 }}
               >
                 Approve {tokenInfo?.symbol}
