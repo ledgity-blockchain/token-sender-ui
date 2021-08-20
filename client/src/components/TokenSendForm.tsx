@@ -119,13 +119,15 @@ export const TokenSendForm: FC<Props> = ({
         {({ errors, isSubmitting, isValid }) => (
           <Form>
             <p>
-              <label>Addresses and amounts separated with comma</label>
+              <label>
+                Addresses and amounts separated with TAB or space characters
+              </label>
               <Input.TextArea
                 name="data"
                 rows={10}
-                placeholder="address1, amount1
-address2, amount2
-address3, amount3
+                placeholder="address1	amount1
+address2	amount2
+address3	amount3
 ..."
                 validate={(data) => {
                   try {
@@ -197,8 +199,12 @@ address3, amount3
 };
 
 const parseAddressesAmounts = (s: string, decimals: number) => {
-  s = s.trim();
-  const csv = Papa.parse<[string, string]>(s, { delimiter: ',' });
+  s = s
+    .trim()
+    .split('\n')
+    .map((row) => row.replaceAll(/[\s\t]+/g, '\t'))
+    .join('\n');
+  const csv = Papa.parse<[string, string]>(s, { delimiter: '\t' });
   const error = csv.errors[0];
   if (error) {
     throw new Error(`Error on row ${error.row} ${error.message}`);
@@ -212,7 +218,7 @@ const parseAddressesAmounts = (s: string, decimals: number) => {
     }
     addresses.push(address);
 
-    amount = amount.trim();
+    amount = amount.trim().replaceAll(',', '');
     try {
       amounts.push(ethers.utils.parseUnits(amount, decimals));
     } catch (e) {
