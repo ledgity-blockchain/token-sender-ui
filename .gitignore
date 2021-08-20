@@ -2,6 +2,7 @@
 artifacts
 cache
 typechain
+client/src/deployments.json
 
 # Tests
 coverage
