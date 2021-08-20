@@ -61,6 +61,7 @@ export const TokenSendForm: FC<Props> = ({
       <Typography.Text>Name: {tokenInfo?.name}</Typography.Text>
       <Typography.Text>Symbol: {tokenInfo?.symbol}</Typography.Text>
       <Typography.Text>Decimals: {decimals}</Typography.Text>
+      <Typography.Text>Contract address: {token.address}</Typography.Text>
       <Formik
         initialValues={{ data: '' }}
         isInitialValid={false}
