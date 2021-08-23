@@ -1,8 +1,16 @@
 import deployments from './deployments.json';
 
+const MAINNET_ID = 1;
 const ROPSTEN_ID = 3;
 const config = {
   networks: {
+    [MAINNET_ID]: {
+      networkName: 'Mainnet',
+      addresses: {
+        TokenSender: deployments[1].main.contracts.TokenSender.address,
+        Token: '0x85Ffb35957203dfD12061eAeCD708dB623Bd567C',
+      },
+    },
     [ROPSTEN_ID]: {
       networkName: 'Ropsten',
       addresses: {
