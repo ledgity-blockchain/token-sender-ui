@@ -1,4 +1,5 @@
 import '@nomiclabs/hardhat-ethers';
+import '@nomiclabs/hardhat-etherscan';
 import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
 import 'hardhat-deploy';
@@ -42,6 +43,11 @@ const config: HardhatUserConfig = {
       accounts: [MAINNET_PRIVATE_KEY],
       gasPrice: 30000000000,
     },
+  },
+  etherscan: {
+    // Your API key for Etherscan
+    // Obtain one at https://etherscan.io/
+    apiKey: 'TVHC8TX5TTYPBQFQ5E9GWT8QN74CSK5T3H',
   },
   namedAccounts: typedNamedAccounts({
     deployer: {
