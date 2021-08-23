@@ -40,7 +40,7 @@ const config: HardhatUserConfig = {
       url: MAINNET_PROVIDER_URL,
       chainId: 1,
       accounts: [MAINNET_PRIVATE_KEY],
-      gasPrice: 30 * 1000000000,
+      gasPrice: 30000000000,
     },
   },
   namedAccounts: typedNamedAccounts({
