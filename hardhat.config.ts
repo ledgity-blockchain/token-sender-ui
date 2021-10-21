@@ -6,6 +6,7 @@ import 'hardhat-deploy';
 import { HardhatUserConfig } from 'hardhat/config';
 import 'solidity-coverage';
 import {
+  BSC_PRIVATE_KEY,
   MAINNET_PRIVATE_KEY,
   MAINNET_PROVIDER_URL,
   ROPSTEN_PROVIDER_URL,
@@ -43,6 +44,17 @@ const config: HardhatUserConfig = {
       accounts: [MAINNET_PRIVATE_KEY],
       gasPrice: 30000000000,
     },
+    bscmainnet: {
+      url: 'https://bsc-dataseed.binance.org/',
+      chainId: 56,
+      accounts: [BSC_PRIVATE_KEY],
+      gasPrice: 5000000000,
+    },
+    bsctestnet: {
+      url: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+      chainId: 97,
+      accounts: [TEST_PRIVATE_KEY],
+    },
   },
   etherscan: {
     // Your API key for Etherscan
@@ -50,11 +62,7 @@ const config: HardhatUserConfig = {
     apiKey: 'TVHC8TX5TTYPBQFQ5E9GWT8QN74CSK5T3H',
   },
   namedAccounts: typedNamedAccounts({
-    deployer: {
-      localhost: 0,
-      ropsten: 0,
-      main: 0,
-    },
+    deployer: 0,
   }),
 };
 

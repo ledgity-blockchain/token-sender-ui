@@ -1,0 +1,63 @@
+{
+  "address": "0x83e4954331B40d7a3A0Af7BE29b7D8150Ad18532",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "address[]",
+          "name": "addresses",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "amounts",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "bulkSend",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xd1758b689d25f242785dfffc34ff6dcbf0c2a9e006dc97ed999ca8e6c8be2de9",
+  "receipt": {
+    "to": null,
+    "from": "0xc28Bf645b0ae0605747283A80553d54201D31544",
+    "contractAddress": "0x83e4954331B40d7a3A0Af7BE29b7D8150Ad18532",
+    "transactionIndex": 2,
+    "gasUsed": "217136",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x12f32bf24394f862e9d4698f751c1812b56056cda2b8a762aafe50c6508d8bc3",
+    "transactionHash": "0xd1758b689d25f242785dfffc34ff6dcbf0c2a9e006dc97ed999ca8e6c8be2de9",
+    "logs": [],
+    "blockNumber": 13413991,
+    "cumulativeGasUsed": "339851",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "solcInputHash": "a04182b6b74b2082c9f5a5fd932eea8b",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.4+commit.c7e474f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"addresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"name\":\"bulkSend\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/TokenSender.sol\":\"TokenSender\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `recipient`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `sender` to `recipient` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(\\n        address sender,\\n        address recipient,\\n        uint256 amount\\n    ) external returns (bool);\\n\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n}\\n\",\"keccak256\":\"0x027b891937d20ccf213fdb9c31531574256de774bda99d3a70ecef6e1913ed2a\",\"license\":\"MIT\"},\"contracts/TokenSender.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\npragma solidity 0.8.4;\\n\\nimport {IERC20} from \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\n\\n\\ncontract TokenSender {\\n    function bulkSend(address token, address[] calldata addresses, uint256[] calldata amounts) external {\\n        require(addresses.length == amounts.length);\\n        uint256 len = addresses.length;\\n        for (uint256 i = 0; i < len; i++) {\\n            require(IERC20(token).transferFrom(msg.sender, addresses[i], amounts[i]));\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xaa846cdeee343de8a6bf1e865d9a6e600c98c24e93540fb40e44560a018604b5\",\"license\":\"UNLICENSED\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506102f7806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c8063259c276e14610030575b600080fd5b61004361003e3660046101fc565b610045565b005b82811461005157600080fd5b8260005b8181101561016c57866001600160a01b03166323b872dd3388888581811061008d57634e487b7160e01b600052603260045260246000fd5b90506020020160208101906100a291906101db565b8787868181106100c257634e487b7160e01b600052603260045260246000fd5b6040516001600160e01b031960e088901b1681526001600160a01b03958616600482015294909316602485015250602090910201356044820152606401602060405180830381600087803b15801561011957600080fd5b505af115801561012d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610151919061027a565b61015a57600080fd5b806101648161029a565b915050610055565b50505050505050565b80356001600160a01b038116811461018c57600080fd5b919050565b60008083601f8401126101a2578182fd5b50813567ffffffffffffffff8111156101b9578182fd5b6020830191508360208260051b85010111156101d457600080fd5b9250929050565b6000602082840312156101ec578081fd5b6101f582610175565b9392505050565b600080600080600060608688031215610213578081fd5b61021c86610175565b9450602086013567ffffffffffffffff80821115610238578283fd5b61024489838a01610191565b9096509450604088013591508082111561025c578283fd5b5061026988828901610191565b969995985093965092949392505050565b60006020828403121561028b578081fd5b815180151581146101f5578182fd5b60006000198214156102ba57634e487b7160e01b81526011600452602481fd5b506001019056fea26469706673582212203742b0440844ae8a29a8158e838c891c2d8840a22ab06542c5e73fbc7a7c66d764736f6c63430008040033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c8063259c276e14610030575b600080fd5b61004361003e3660046101fc565b610045565b005b82811461005157600080fd5b8260005b8181101561016c57866001600160a01b03166323b872dd3388888581811061008d57634e487b7160e01b600052603260045260246000fd5b90506020020160208101906100a291906101db565b8787868181106100c257634e487b7160e01b600052603260045260246000fd5b6040516001600160e01b031960e088901b1681526001600160a01b03958616600482015294909316602485015250602090910201356044820152606401602060405180830381600087803b15801561011957600080fd5b505af115801561012d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610151919061027a565b61015a57600080fd5b806101648161029a565b915050610055565b50505050505050565b80356001600160a01b038116811461018c57600080fd5b919050565b60008083601f8401126101a2578182fd5b50813567ffffffffffffffff8111156101b9578182fd5b6020830191508360208260051b85010111156101d457600080fd5b9250929050565b6000602082840312156101ec578081fd5b6101f582610175565b9392505050565b600080600080600060608688031215610213578081fd5b61021c86610175565b9450602086013567ffffffffffffffff80821115610238578283fd5b61024489838a01610191565b9096509450604088013591508082111561025c578283fd5b5061026988828901610191565b969995985093965092949392505050565b60006020828403121561028b578081fd5b815180151581146101f5578182fd5b60006000198214156102ba57634e487b7160e01b81526011600452602481fd5b506001019056fea26469706673582212203742b0440844ae8a29a8158e838c891c2d8840a22ab06542c5e73fbc7a7c66d764736f6c63430008040033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
