@@ -1,5 +1,13 @@
 import { MaxUint256 } from '@ethersproject/constants';
-import { message, Modal, Space, Table, Typography } from 'antd';
+import {
+  Alert,
+  Input as InputAntd,
+  message,
+  Modal,
+  Space,
+  Table,
+  Typography,
+} from 'antd';
 import { BigNumber, ContractTransaction, ethers } from 'ethers';
 import { Formik } from 'formik';
 import { Form, Input, SubmitButton } from 'formik-antd';
@@ -57,6 +65,22 @@ export const TokenSendForm: FC<Props> = ({
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
       <Typography.Title>Token Sender</Typography.Title>
+      <Alert
+        type="warning"
+        message={
+          <Space direction="vertical">
+            <Typography.Text>
+              WARNING: make sure there are no spaces, commas or other
+              punctuation in token amounts. The format is "address amount",
+              e.g.,
+            </Typography.Text>
+            <InputAntd.TextArea
+              value="0xe24FE37010d2B026A215F43CDC013Ca4B11BAfA9 100000
+0xDeD430cc740636f57084699f3CF2B0c5d407C4a7 20000"
+            />
+          </Space>
+        }
+      />
       <Typography.Text>Network: {networkName}</Typography.Text>
       <Typography.Text>Name: {tokenInfo?.name}</Typography.Text>
       <Typography.Text>Symbol: {tokenInfo?.symbol}</Typography.Text>
@@ -132,7 +156,7 @@ address3	amount3
                 validate={(data) => {
                   try {
                     parseAddressesAmounts(data, decimals);
-                  } catch (e) {
+                  } catch (e: any) {
                     return e.message;
                   }
                 }}
