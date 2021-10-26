@@ -1,0 +1,35 @@
+image: docker:latest
+services:
+    - docker:19.03.5-dind
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - deploy
+
+variables:
+    CONTAINER_IMAGE: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+
+build-staging:
+  allow_failure: false
+  stage: build
+  before_script:
+      - echo "$CI_REGISTRY_PASSWORD" | docker login -u gitlab+ci --password-stdin registry.gitlab.com
+  script:
+      - docker build -f ci/Dockerfile -t ${CONTAINER_IMAGE} .
+      - docker push ${CONTAINER_IMAGE}
+  when: manual
+
+deploy-staging:      # This job runs in the deploy stage.
+  allow_failure: false
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  before_script:
+      - apk add openssh-client 
+      - eval $(ssh-agent -s)
+      - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+      - mkdir -p ~/.ssh
+      - chmod 700 ~/.ssh
+  script:
+      - ssh -o StrictHostKeyChecking=no deployer@135.125.207.157 "
+        docker pull ${CONTAINER_IMAGE} && 
+        docker container rm -f ${CI_COMMIT_REF_SLUG} || true && 
+        docker run -d --network traefik --name ${CI_COMMIT_REF_SLUG} ${CONTAINER_IMAGE}"
