@@ -5,6 +5,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 RUN apk --no-cache add git
 COPY package.json yarn.lock ./
 COPY . .
+RUN cp env.example.ts env.ts
 RUN yarn
 RUN cd client && yarn
 RUN yarn hardhat compile
