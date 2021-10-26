@@ -17,6 +17,7 @@ build-staging:
   script:
       - docker build -f ci/Dockerfile -t ${CONTAINER_IMAGE} .
       - docker push ${CONTAINER_IMAGE}
+  when: manual
 
 deploy-staging:      # This job runs in the deploy stage.
   allow_failure: false
