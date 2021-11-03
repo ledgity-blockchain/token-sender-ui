@@ -31,5 +31,7 @@ deploy-staging:      # This job runs in the deploy stage.
   script:
       - ssh -o StrictHostKeyChecking=no deployer@135.125.207.157 "
         docker pull ${CONTAINER_IMAGE} && 
-        docker container rm -f ${CI_COMMIT_REF_SLUG} || true && 
-        docker run -d --network traefik --name ${CI_COMMIT_REF_SLUG} ${CONTAINER_IMAGE}"
+        docker container rm -f ${CI_PROJECT_NAME}_${CI_COMMIT_REF_SLUG} || true && 
+        docker run -d --network traefik --name ${CI_PROJECT_NAME}_${CI_COMMIT_REF_SLUG} ${CONTAINER_IMAGE} &&
+        docker image prune -a &&
+        docker container prune -f"
