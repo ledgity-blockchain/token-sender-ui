@@ -1,29 +1,25 @@
-stages:          # List of stages for jobs, and their order of execution
-  - build
-  - deploy
+include:
+  - project: 'ledgity/root'
+    ref: master
+    file: '/templates/.gitlab-ci-traefik-tmpl.yml'
 
-variables:
-    CONTAINER_IMAGE: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
-
-build:
-  allow_failure: false
-  stage: build
+default:
   tags:
-    - frontend
-  before_script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u gitlab+deploy+runner --password-stdin registry.gitlab.com
-  script:
-    - docker build -f ci/Dockerfile -t ${CONTAINER_IMAGE} .
-    - docker push ${CONTAINER_IMAGE}
-  when: manual
+    - docker
 
-deploy:      # This job runs in the deploy stage.
-  allow_failure: false
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  tags:
-    - frontend
-  script:
-    - docker container rm -f ${CI_PROJECT_NAME}_${CI_COMMIT_REF_SLUG} || true
-    - docker run -d --network traefik --name ${CI_PROJECT_NAME}_${CI_COMMIT_REF_SLUG} ${CONTAINER_IMAGE}
-    - docker container prune -f
-    - docker image prune -a
+## Stages declarations
+
+setup_for_prod:
+  extends: .setup_tmpl
+  variables:
+    FLAVOR: prod
+  only:
+    - master
+
+build_app:
+  extends: .build_tmpl
+
+deploy:
+  extends: .deploy_tmpl
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master"'
