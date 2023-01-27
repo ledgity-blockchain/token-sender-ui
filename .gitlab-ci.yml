@@ -14,7 +14,7 @@ setup_for_prod:
   variables:
     FLAVOR: prod
   only:
-    - master
+    - release/prod
 
 build_app:
   extends: .build_tmpl
@@ -22,4 +22,4 @@ build_app:
 deploy:
   extends: .deploy_tmpl
   rules:
-    - if: '$CI_COMMIT_REF_NAME == "master"'
+    - if: '$CI_COMMIT_REF_NAME == "release/prod"'
