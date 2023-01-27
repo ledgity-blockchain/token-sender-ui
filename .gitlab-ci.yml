@@ -1,5 +1,5 @@
 include:
-  - project: 'ledgity/root'
+  - project: 'infrastructure/root'
     ref: master
     file: '/templates/.gitlab-ci-traefik-tmpl.yml'
 
